@@ -1,0 +1,4 @@
+Resources
+| distinct type, apiVersion
+| where isnotnull(apiVersion)
+| order by type asc

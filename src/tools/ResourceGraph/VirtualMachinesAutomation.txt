@@ -1,0 +1,5 @@
+Resources
+| where type == 'microsoft.compute/virtualmachines'
+| where name contains 'TTTT'
+| project ResourceName = name, type, resourceGroup, subscriptionId
+| order by ['subscriptionId'] asc

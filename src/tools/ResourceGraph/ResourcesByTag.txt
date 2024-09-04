@@ -1,0 +1,3 @@
+Resources
+| where tags.environment=~'internal'
+| project name, tags

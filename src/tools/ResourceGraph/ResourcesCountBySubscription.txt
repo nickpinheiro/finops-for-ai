@@ -1,0 +1,3 @@
+Resources
+| summarize TotalResources = count() by subscriptionId
+| order by TotalResources desc

@@ -1,0 +1,2 @@
+Resources
+| where type =~ 'Microsoft.Compute/virtualMachines'

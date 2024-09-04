@@ -1,0 +1,5 @@
+Resources
+| where type != "microsoft.resources/deployments" // Exclude deployment resources
+| extend CreationTime = tostring(properties.createdTime)
+| where CreationTime != "undefined" and CreationTime != ""
+| order by CreationTime desc 

@@ -1,0 +1,3 @@
+Resources
+| where type =~ 'microsoft.web/*' or type =~ 'microsoft.logic/*' or type =~ 'microsoft.web/sites' or type =~ 'microsoft.web/serverfarms'
+| project name, type, location, resourceGroup

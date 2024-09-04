@@ -1,0 +1,7 @@
+What was our virtual machine spending last month?
+How can we reduce our costs?
+Summarize my costs for the last 6 months.
+Why did our cost spike in February?
+Can you provide an estimate of our expected expenses for the next 6 months?
+Show me the resource group with the highest spending in the last 6 months.
+Which resources are covered by savings plans?

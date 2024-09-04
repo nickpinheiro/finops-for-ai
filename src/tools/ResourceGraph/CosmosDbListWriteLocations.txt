@@ -1,0 +1,7 @@
+Resources
+| where type =~ 'microsoft.documentdb/databaseaccounts'
+| project id, name, writeLocations = (properties.writeLocations)
+| mv-expand writeLocations
+| project id, name, writeLocation = tostring(writeLocations.locationName)
+| where writeLocation in ('East US', 'West US')
+| summarize by id, name

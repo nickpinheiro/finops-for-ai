@@ -1,0 +1,11 @@
+Resources
+| where type =~ 'microsoft.compute/virtualmachines'
+| project resourceGroup, Id = tolower(id), PowerState = tostring( properties.extended.instanceView.powerState.code)
+| join kind=leftouter (
+	HealthResources
+	| where type =~ 'microsoft.resourcehealth/availabilitystatuses'
+	| where tostring(properties.targetResourceType) =~ 'microsoft.compute/virtualmachines'
+	| project targetResourceId = tolower(tostring(properties.targetResourceId)), AvailabilityState = tostring(properties.availabilityState))
+	on $left.Id == $right.targetResourceId
+| project-away targetResourceId
+| where PowerState != 'PowerState/deallocated'

@@ -1,0 +1,7 @@
+Resources
+| where type =~ 'Microsoft.Compute/virtualMachines'
+| where properties.extended.instanceView.powerState.code != 'PowerState/running'
+| project vmName = name, power = properties.extended.instanceView.powerState.code
+| join kind = leftouter (GuestConfigurationResources
+	| extend vmName = tostring(split(properties.targetResourceId,'/')[(-1)])
+	| project vmName, name, compliance = properties.complianceStatus) on vmName | project-away vmName1

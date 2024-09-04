@@ -1,0 +1,3 @@
+Resources
+| project name, type, location, created
+| order by name asc
