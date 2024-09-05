@@ -1,0 +1,18 @@
+Delete payload/data/user/edge_owner_to_timeline_media
+Delete payload/data/user/edge_related_profiles
+
+Add following fiels to the index:
+
+user_biography
+user_bio_links
+user_category_enum
+user_category_name
+user_external_url
+user_followed_by_count
+user_followed_count
+user_full_name
+user_username
+user_is_private
+user_is_verified
+
+Set new fields to Retrievable and Searchable

@@ -1,0 +1,67 @@
+{
+  "@odata.context": "https://search-25am53ujh3y74.search.windows.net/$metadata#indexers/$entity",
+  "@odata.etag": "\"0x8DCCA6C0C9D59B8\"",
+  "name": "cosmosdb-indexer-001",
+  "description": "",
+  "dataSourceName": "cosmos-datamining-prod-001",
+  "skillsetName": "cosmosdb-skillset-001",
+  "targetIndexName": "cosmosdb-index-001",
+  "disabled": null,
+  "schedule": null,
+  "parameters": {
+    "batchSize": null,
+    "maxFailedItems": 0,
+    "maxFailedItemsPerBatch": 0,
+    "base64EncodeKeys": false,
+    "configuration": {}
+  },
+  "fieldMappings": [],
+  "outputFieldMappings": [
+    {
+      "sourceFieldName": "/document/user_biography/biography",
+      "targetFieldName": "user_biography"
+    },
+    {
+      "sourceFieldName": "/document/user_bio_links/bio_links",
+      "targetFieldName": "user_bio_links"
+    },
+    {
+      "sourceFieldName": "/document/user_category_enum/category_enum",
+      "targetFieldName": "user_category_enum"
+    },
+    {
+      "sourceFieldName": "/document/user_category_name/category_name",
+      "targetFieldName": "user_category_name"
+    },
+    {
+      "sourceFieldName": "/document/user_external_url/external_url",
+      "targetFieldName": "user_external_url"
+    },
+    {
+      "sourceFieldName": "/document/user_followed_by_count/count",
+      "targetFieldName": "user_followed_by_count"
+    },
+    {
+      "sourceFieldName": "/document/user_followed_count/count",
+      "targetFieldName": "user_followed_count"
+    },
+    {
+      "sourceFieldName": "/document/user_full_name/full_name",
+      "targetFieldName": "user_full_name"
+    },
+    {
+      "sourceFieldName": "/document/user_username/username",
+      "targetFieldName": "user_username"
+    },
+    {
+      "sourceFieldName": "/document/user_is_verified/is_verified",
+      "targetFieldName": "user_is_verified"
+    },
+    {
+      "sourceFieldName": "/document/user_is_private/is_private",
+      "targetFieldName": "user_is_private"
+    }
+  ],
+  "cache": null,
+  "encryptionKey": null
+}

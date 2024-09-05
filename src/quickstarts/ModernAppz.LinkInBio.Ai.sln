@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "azure-openai-quickstart-chat-streaming", "azure-openai-quickstart-chat-streaming\azure-openai-quickstart-chat-streaming.csproj", "{60D2F5BA-21E1-4BDB-858E-8674743CA6DE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "azure-openai-quickstart-chat-completion", "azure-openai-quickstart-chat-completion\azure-openai-quickstart-chat-completion.csproj", "{73E9517D-B401-4138-8385-A538D47A1B96}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "azure-openai-quickstart-generate-embeddings", "azure-openai-quickstart-generate-embeddings\azure-openai-quickstart-generate-embeddings.csproj", "{6AED43DD-599D-409D-89FD-317C54A39B3B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "azure-ai-search-configuration", "azure-ai-search-configuration", "{1EE366FE-B3F8-4A94-809A-B7BEC20C0A0D}"
+	ProjectSection(SolutionItems) = preProject
+		index-creation-modifications.txt = index-creation-modifications.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "definitions", "definitions", "{D8DB0AE4-8D78-4738-8902-A384B71E728C}"
+	ProjectSection(SolutionItems) = preProject
+		azure-ai-search-configuration\definitions\index.txt = azure-ai-search-configuration\definitions\index.txt
+		azure-ai-search-configuration\definitions\indexer.txt = azure-ai-search-configuration\definitions\indexer.txt
+		azure-ai-search-configuration\definitions\skillset.txt = azure-ai-search-configuration\definitions\skillset.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "azure-openai-rag-prompt-library", "azure-openai-rag-prompt-library", "{20628764-3471-4264-B2BB-F2982689583F}"
+	ProjectSection(SolutionItems) = preProject
+		azure-openai-rag-prompt-library\prompts.txt = azure-openai-rag-prompt-library\prompts.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "azure-openai-quickstart-rate-limiting", "azure-openai-quickstart-rate-limiting\azure-openai-quickstart-rate-limiting.csproj", "{B66A3F90-9A95-408D-90D2-3634796F3B18}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60D2F5BA-21E1-4BDB-858E-8674743CA6DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60D2F5BA-21E1-4BDB-858E-8674743CA6DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60D2F5BA-21E1-4BDB-858E-8674743CA6DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60D2F5BA-21E1-4BDB-858E-8674743CA6DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73E9517D-B401-4138-8385-A538D47A1B96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73E9517D-B401-4138-8385-A538D47A1B96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73E9517D-B401-4138-8385-A538D47A1B96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73E9517D-B401-4138-8385-A538D47A1B96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AED43DD-599D-409D-89FD-317C54A39B3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AED43DD-599D-409D-89FD-317C54A39B3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AED43DD-599D-409D-89FD-317C54A39B3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AED43DD-599D-409D-89FD-317C54A39B3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B66A3F90-9A95-408D-90D2-3634796F3B18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B66A3F90-9A95-408D-90D2-3634796F3B18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B66A3F90-9A95-408D-90D2-3634796F3B18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B66A3F90-9A95-408D-90D2-3634796F3B18}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D8DB0AE4-8D78-4738-8902-A384B71E728C} = {1EE366FE-B3F8-4A94-809A-B7BEC20C0A0D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EDBFA501-53CF-4CF4-A849-4890FE8868F3}
+	EndGlobalSection
+EndGlobal

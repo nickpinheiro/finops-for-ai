@@ -1,0 +1,60 @@
+To effectively interact with your Instagram user data in Azure OpenAI Studio, you can use a variety of prompts to retrieve and query the data. Here are some example prompts that you can use:
+
+### Prompts for Basic Information Retrieval
+
+1. **User Bio**:
+   - "Retrieve the biography of the Instagram user with the username 'jgbeautyjg'."
+
+2. **Full Name**:
+   - "What is the full name of the Instagram user with the username 'jgbeautyjg'?"
+
+3. **Profile Picture URL**:
+   - "Provide the profile picture URL of the Instagram user 'jgbeautyjg'."
+
+4. **Category Name**:
+   - "What is the category name for the Instagram user 'jgbeautyjg'?"
+
+5. **Verification Status**:
+   - "Is the Instagram user 'jgbeautyjg' verified?"
+
+### Prompts for User Interaction and Analysis
+
+1. **All Information**:
+   - "Give me all available information about the Instagram user with the username 'jgbeautyjg'."
+
+2. **Profile Overview**:
+   - "Summarize the profile of the Instagram user 'jgbeautyjg'."
+
+3. **User Data Extraction**:
+   - "Extract and provide the full details for the Instagram user 'jgbeautyjg'."
+
+4. **Business Category**:
+   - "What business category does the Instagram user 'jgbeautyjg' belong to?"
+
+5. **Follower Count**:
+   - "How many followers does the Instagram user 'jgbeautyjg' have?"
+
+### Prompts for Advanced Queries
+
+1. **Filter by Category**:
+   - "List all Instagram users who belong to the business category 'Makeup Artist'."
+
+2. **Compare User Details**:
+   - "Compare the profiles of Instagram users 'jgbeautyjg' and 'anotherusername'."
+
+3. **Recent Activity**:
+   - "Provide recent activity details for the Instagram user 'jgbeautyjg', if available."
+
+4. **Check Verified Status**:
+   - "For which Instagram users is the verified status true?"
+
+5. **Business Email**:
+   - "What is the business email for the Instagram user 'jgbeautyjg', if available?"
+
+### General Tips
+
+- **Be Specific**: The more specific your prompt, the more accurate the response will be.
+- **Use Data Fields**: Refer to the fields you have in your index when crafting prompts.
+- **Test and Refine**: Test different prompts to see how well the system retrieves and responds with the data.
+
+Feel free to modify these prompts based on the exact structure and fields of your data in Azure OpenAI Studio.

@@ -1,0 +1,35 @@
+﻿@model string
+@{
+    ViewData["Title"] = "Generate Bio";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <h1>Generate a Bio</h1>
+
+    <form method="post" action="/generate-bio">
+        <label for="userPrompt">Enter user details:</label>
+        <input type="text" id="userPrompt" name="userPrompt" required>
+        <button type="submit">Generate Bio</button>
+    </form>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div style="color: red;">
+            <p>@ViewBag.ErrorMessage</p>
+        </div>
+    }
+
+    @if (Model != null)
+    {
+        <h2>Generated Bio:</h2>
+        <p>@Model</p>
+    }
+</body>
+</html>
