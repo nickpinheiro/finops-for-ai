@@ -1,0 +1,213 @@
+{
+  "@odata.context": "https://search-25am53ujh3y74.search.windows.net/$metadata#skillsets/$entity",
+  "@odata.etag": "\"0x8DCCA6BDB854FA3\"",
+  "name": "cosmosdb-skillset-001",
+  "description": "Skillset to extract nested JSON fields",
+  "skills": [
+    {
+      "@odata.type": "#Microsoft.Skills.Util.ShaperSkill",
+      "name": "extractUserData-biography",
+      "description": "Extracts user data from nested fields",
+      "context": "/document",
+      "inputs": [
+        {
+          "name": "biography",
+          "source": "/document/payload/data/user/biography"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "targetName": "user_biography"
+        }
+      ]
+    },
+    {
+      "@odata.type": "#Microsoft.Skills.Util.ShaperSkill",
+      "name": "extractUserData-bio_links",
+      "description": "Extracts user data from nested fields",
+      "context": "/document",
+      "inputs": [
+        {
+          "name": "bio_links",
+          "source": "/document/payload/data/user/bio_links"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "targetName": "user_bio_links"
+        }
+      ]
+    },
+    {
+      "@odata.type": "#Microsoft.Skills.Util.ShaperSkill",
+      "name": "extractUserData-category_enum",
+      "description": "Extracts user data from nested fields",
+      "context": "/document",
+      "inputs": [
+        {
+          "name": "category_enum",
+          "source": "/document/payload/data/user/category_enum"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "targetName": "user_category_enum"
+        }
+      ]
+    },
+    {
+      "@odata.type": "#Microsoft.Skills.Util.ShaperSkill",
+      "name": "extractUserData-category_name",
+      "description": "Extracts user data from nested fields",
+      "context": "/document",
+      "inputs": [
+        {
+          "name": "category_name",
+          "source": "/document/payload/data/user/category_name"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "targetName": "user_category_name"
+        }
+      ]
+    },
+    {
+      "@odata.type": "#Microsoft.Skills.Util.ShaperSkill",
+      "name": "extractUserData-external_url",
+      "description": "Extracts user data from nested fields",
+      "context": "/document",
+      "inputs": [
+        {
+          "name": "external_url",
+          "source": "/document/payload/data/user/external_url"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "targetName": "user_external_url"
+        }
+      ]
+    },
+    {
+      "@odata.type": "#Microsoft.Skills.Util.ShaperSkill",
+      "name": "extractUserData-edge_followed_by",
+      "description": "Extracts user data from nested fields",
+      "context": "/document",
+      "inputs": [
+        {
+          "name": "count",
+          "source": "/document/payload/data/user/edge_followed_by/count"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "targetName": "user_followed_by_count"
+        }
+      ]
+    },
+    {
+      "@odata.type": "#Microsoft.Skills.Util.ShaperSkill",
+      "name": "extractUserData-edge_follow",
+      "description": "Extracts user data from nested fields",
+      "context": "/document",
+      "inputs": [
+        {
+          "name": "count",
+          "source": "/document/payload/data/user/edge_follow/count"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "targetName": "user_followed_count"
+        }
+      ]
+    },
+    {
+      "@odata.type": "#Microsoft.Skills.Util.ShaperSkill",
+      "name": "extractUserData-full_name",
+      "description": "Extracts user data from nested fields",
+      "context": "/document",
+      "inputs": [
+        {
+          "name": "full_name",
+          "source": "/document/payload/data/user/full_name"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "targetName": "user_full_name"
+        }
+      ]
+    },
+    {
+      "@odata.type": "#Microsoft.Skills.Util.ShaperSkill",
+      "name": "extractUserData-username",
+      "description": "Extracts user data from nested fields",
+      "context": "/document",
+      "inputs": [
+        {
+          "name": "username",
+          "source": "/document/payload/data/user/username"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "targetName": "user_username"
+        }
+      ]
+    },
+    {
+      "@odata.type": "#Microsoft.Skills.Util.ShaperSkill",
+      "name": "extractUserData-is_verified",
+      "description": "Extracts user data from nested fields",
+      "context": "/document",
+      "inputs": [
+        {
+          "name": "is_verified",
+          "source": "/document/payload/data/user/is_verified"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "targetName": "user_is_verified"
+        }
+      ]
+    },
+    {
+      "@odata.type": "#Microsoft.Skills.Util.ShaperSkill",
+      "name": "extractUserData-is_private",
+      "description": "Extracts user data from nested fields",
+      "context": "/document",
+      "inputs": [
+        {
+          "name": "is_private",
+          "source": "/document/payload/data/user/is_private"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "targetName": "user_is_private"
+        }
+      ]
+    }
+  ],
+  "cognitiveServices": {
+    "@odata.type": "#Microsoft.Azure.Search.DefaultCognitiveServices",
+    "description": "Default cognitive services"
+  },
+  "knowledgeStore": null,
+  "indexProjections": null,
+  "encryptionKey": null
+}

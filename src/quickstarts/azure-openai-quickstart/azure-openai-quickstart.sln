@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "azure-openai-quickstart-chat-completion", "azure-openai-quickstart-chat-completion\azure-openai-quickstart-chat-completion.csproj", "{DB97390D-B60F-4482-A6C4-50D6CBB6B644}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "azure-openai-quickstart-chat-streaming", "azure-openai-quickstart-chat-streaming\azure-openai-quickstart-chat-streaming.csproj", "{27048473-AD86-4EB9-BAEA-9963FFD6A3BD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "azure-openai-quickstart-generate-embeddings", "azure-openai-quickstart-generate-embeddings\azure-openai-quickstart-generate-embeddings.csproj", "{18658D7B-CB10-4CAE-9C49-95F269607639}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "azure-openai-quickstart-rate-limiting", "azure-openai-quickstart-rate-limiting\azure-openai-quickstart-rate-limiting.csproj", "{9D001AB1-FFF5-45C9-8921-E6BEB653B710}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "azure-openai-rag-prompt-library", "azure-openai-rag-prompt-library", "{8B0617F6-E672-431D-9D20-1B5D3F5CFBBF}"
+	ProjectSection(SolutionItems) = preProject
+		azure-openai-rag-prompt-library\prompts.txt = azure-openai-rag-prompt-library\prompts.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "azure-ai-search-configuration", "azure-ai-search-configuration", "{8E68B78F-09AC-476A-8129-2892391DD4CE}"
+	ProjectSection(SolutionItems) = preProject
+		azure-ai-search-configuration\definitions\index.txt = azure-ai-search-configuration\definitions\index.txt
+		azure-ai-search-configuration\definitions\indexer.txt = azure-ai-search-configuration\definitions\indexer.txt
+		azure-ai-search-configuration\definitions\skillset.txt = azure-ai-search-configuration\definitions\skillset.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB97390D-B60F-4482-A6C4-50D6CBB6B644}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB97390D-B60F-4482-A6C4-50D6CBB6B644}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB97390D-B60F-4482-A6C4-50D6CBB6B644}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB97390D-B60F-4482-A6C4-50D6CBB6B644}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27048473-AD86-4EB9-BAEA-9963FFD6A3BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27048473-AD86-4EB9-BAEA-9963FFD6A3BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27048473-AD86-4EB9-BAEA-9963FFD6A3BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27048473-AD86-4EB9-BAEA-9963FFD6A3BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18658D7B-CB10-4CAE-9C49-95F269607639}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18658D7B-CB10-4CAE-9C49-95F269607639}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18658D7B-CB10-4CAE-9C49-95F269607639}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18658D7B-CB10-4CAE-9C49-95F269607639}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D001AB1-FFF5-45C9-8921-E6BEB653B710}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D001AB1-FFF5-45C9-8921-E6BEB653B710}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D001AB1-FFF5-45C9-8921-E6BEB653B710}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D001AB1-FFF5-45C9-8921-E6BEB653B710}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8A78F6B-7F6E-4B0F-9E07-6347A9791F2E}
+	EndGlobalSection
+EndGlobal
