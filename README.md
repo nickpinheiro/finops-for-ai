@@ -62,8 +62,8 @@ To get started, follow these steps:
 ```bash
 finops-for-ai/
 ├── src/                    # Source code for FinOps operations
-│   ├── monitor/            # Cost monitoring tools
-│   ├── optimize/           # Optimization scripts
+│   ├── quickstarts/        # Quickstart projects
+│   ├── tools/              # Optimization scripts
 │   └── scale/              # Automation for scaling resources
 ├── tests/                  # Unit and integration tests
 ├── docs/                   # Documentation for using the project
