@@ -23,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "azure-ai-search-configurati
 		azure-ai-search-configuration\definitions\skillset.txt = azure-ai-search-configuration\definitions\skillset.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "azure-openai-quickstart-generate-images", "azure-openai-quickstart-generate-images\azure-openai-quickstart-generate-images.csproj", "{0D9F566E-96E4-4155-AB06-0D83BF823D22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{9D001AB1-FFF5-45C9-8921-E6BEB653B710}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D001AB1-FFF5-45C9-8921-E6BEB653B710}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D001AB1-FFF5-45C9-8921-E6BEB653B710}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D9F566E-96E4-4155-AB06-0D83BF823D22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D9F566E-96E4-4155-AB06-0D83BF823D22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D9F566E-96E4-4155-AB06-0D83BF823D22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D9F566E-96E4-4155-AB06-0D83BF823D22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
