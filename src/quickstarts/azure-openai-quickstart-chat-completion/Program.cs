@@ -2,17 +2,26 @@
 using Azure.AI.OpenAI;
 using OpenAI.Chat;
 
-string keyFromEnvironment = "cc67ba39c6ad4938ac2b8c689dfc7977";
+// Fetch the API key and endpoint from environment variables
+string azureApiKey = Environment.GetEnvironmentVariable("AZURE_OPENAI_KEY");
+string azureApiEndpoint = Environment.GetEnvironmentVariable("AZURE_OPENAI_ENDPOINT");
 
-AzureOpenAIClient azureClient = new(
-    new Uri("https://openai-dev-000.openai.azure.com/"),
-    new AzureKeyCredential(keyFromEnvironment));
+if (string.IsNullOrEmpty(azureApiKey) || string.IsNullOrEmpty(azureApiEndpoint))
+{
+	Console.WriteLine("Please make sure AZURE_OPENAI_KEY and AZURE_OPENAI_ENDPOINT environment variables are set.");
+	return;
+}
+
+// Initialize AzureOpenAIClient with credentials from environment variables
+AzureOpenAIClient azureClient = new AzureOpenAIClient(new Uri(azureApiEndpoint), new AzureKeyCredential(azureApiKey));
 ChatClient chatClient = azureClient.GetChatClient("gpt-35-turbo");
 
+// Creating a user prompt message
 ChatCompletion completion = chatClient.CompleteChat(
-    [
-        // System messages represent instructions or other guidance about how the assistant should behave
-        new UserChatMessage("Generate the Powerpoint slides for a conference session on FinOps for AI on Azure"),
-    ]);
+	new ChatMessage[]
+	{
+		new UserChatMessage("Generate the Powerpoint slides for a conference session on FinOps for AI on Azure"),
+	});
 
+// Output the completion result
 Console.WriteLine($"{completion.Role}: {completion.Content[0].Text}");
