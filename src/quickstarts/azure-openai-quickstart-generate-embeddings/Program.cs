@@ -1,171 +1,172 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text.Json;
-using System.Text;
-using System.Threading.Tasks;
-using Azure;
+﻿using Azure;
 using Azure.Search.Documents;
 using Azure.Search.Documents.Models;
-using Azure.Search.Documents.Indexes.Models;
-using System.Threading;
+using System.Net.Http.Headers;
+using System.Text;
+using System.Text.Json;
 
 class Program
 {
-    private static readonly string searchServiceName = "search-25am53ujh3y74";
-    private static readonly string searchApiKey = "JPGih0cbsxcMrvdsVIHTUePamj2Ri8CfoEy6LyZLDIAzSeDnoFBU";
-    private static readonly string indexName = "cosmosdb-index-001";
-    private static readonly string openAiEndpoint = "https://openai-dev-000.openai.azure.com";
-    private static readonly string openAiApiKey = "cc67ba39c6ad4938ac2b8c689dfc7977";
-    private static readonly string openAiDeploymentName = "text-embedding-3-small";
+	static async Task Main(string[] args)
+	{
+		// Retrieve environment variables
+		var searchServiceName = Environment.GetEnvironmentVariable("SEARCH_SERVICE_NAME");
+		var searchApiKey = Environment.GetEnvironmentVariable("SEARCH_API_KEY");
+		var indexName = Environment.GetEnvironmentVariable("INDEX_NAME");
+		var openAiEndpoint = Environment.GetEnvironmentVariable("AZURE_OPENAI_ENDPOINT");
+		var openAiApiKey = Environment.GetEnvironmentVariable("AZURE_OPENAI_KEY");
+		var openAiDeploymentName = Environment.GetEnvironmentVariable("AZURE_OPENAI_DEPLOYMENT");
 
-    static async Task Main(string[] args)
-    {
-        var endpoint = $"https://{searchServiceName}.search.windows.net";
-        var searchClient = new SearchClient(new Uri(endpoint), indexName, new AzureKeyCredential(searchApiKey));
-        int batchSize = 100; // Adjust batch size if needed
-        int skip = 0;
-        bool hasMoreDocuments = true;
+		if (string.IsNullOrEmpty(searchServiceName) || string.IsNullOrEmpty(searchApiKey) ||
+			string.IsNullOrEmpty(indexName) || string.IsNullOrEmpty(openAiEndpoint) ||
+			string.IsNullOrEmpty(openAiApiKey) || string.IsNullOrEmpty(openAiDeploymentName))
+		{
+			throw new Exception("Missing required environment variables.");
+		}
 
-        while (hasMoreDocuments)
-        {
-            var searchResults = await searchClient.SearchAsync<SearchDocument>("*", new SearchOptions
-            {
-                Size = batchSize,
-                Skip = skip
-            });
+		var endpoint = $"https://{searchServiceName}.search.windows.net";
+		var searchClient = new SearchClient(new Uri(endpoint), indexName, new AzureKeyCredential(searchApiKey));
+		int batchSize = 100; // Adjust batch size if needed
+		int skip = 0;
+		bool hasMoreDocuments = true;
 
-            var documentsToUpdate = new List<SearchDocument>();
+		while (hasMoreDocuments)
+		{
+			var searchResults = await searchClient.SearchAsync<SearchDocument>("*", new SearchOptions
+			{
+				Size = batchSize,
+				Skip = skip
+			});
 
-            await foreach (var result in searchResults.Value.GetResultsAsync())
-            {
-                try
-                {
-                    var documentId = result.Document["id"].ToString();
-                    var biography = GetBiography(result.Document);
+			var documentsToUpdate = new List<SearchDocument>();
 
-                    if (biography != null)
-                    {
-                        var embedding = await GenerateEmbedding(biography);
-                        result.Document["content_vector"] = embedding.Select(f => f.ToString()).ToArray();
-                        documentsToUpdate.Add(result.Document);
+			await foreach (var result in searchResults.Value.GetResultsAsync())
+			{
+				try
+				{
+					var documentId = result.Document["id"].ToString();
+					var biography = GetBiography(result.Document);
 
-                        // Process documents in parallel
-                        if (documentsToUpdate.Count >= batchSize)
-                        {
-                            await UpdateDocumentsInIndex(searchClient, documentsToUpdate);
-                            documentsToUpdate.Clear();
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error processing document: {ex.Message}");
-                }
-            }
+					if (biography != null)
+					{
+						var embedding = await GenerateEmbedding(biography, openAiEndpoint, openAiApiKey, openAiDeploymentName);
+						result.Document["content_vector"] = embedding.Select(f => f.ToString()).ToArray();
+						documentsToUpdate.Add(result.Document);
 
-            if (documentsToUpdate.Count > 0)
-            {
-                await UpdateDocumentsInIndex(searchClient, documentsToUpdate);
-            }
+						// Process documents in parallel
+						if (documentsToUpdate.Count >= batchSize)
+						{
+							await UpdateDocumentsInIndex(searchClient, documentsToUpdate);
+							documentsToUpdate.Clear();
+						}
+					}
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine($"Error processing document: {ex.Message}");
+				}
+			}
 
-            skip += batchSize;
-            hasMoreDocuments = searchResults.Value.TotalCount > skip;
-        }
+			if (documentsToUpdate.Count > 0)
+			{
+				await UpdateDocumentsInIndex(searchClient, documentsToUpdate);
+			}
 
-        Console.WriteLine("All documents processed.");
-    }
+			skip += batchSize;
+			hasMoreDocuments = searchResults.Value.TotalCount > skip;
+		}
 
-    static string GetBiography(SearchDocument document)
-    {
-        if (document.TryGetValue("payload", out var payloadValue) && payloadValue is SearchDocument payload)
-        {
-            if (payload.TryGetValue("data", out var dataValue) && dataValue is SearchDocument data)
-            {
-                if (data.TryGetValue("user", out var userValue) && userValue is SearchDocument user)
-                {
-                    if (user.TryGetValue("biography", out var biographyValue) && biographyValue is string biography)
-                    {
-                        return biography;
-                    }
-                }
-            }
-        }
+		Console.WriteLine("All documents processed.");
+	}
 
-        return null;
-    }
+	static string GetBiography(SearchDocument document)
+	{
+		if (document.TryGetValue("payload", out var payloadValue) && payloadValue is SearchDocument payload)
+		{
+			if (payload.TryGetValue("data", out var dataValue) && dataValue is SearchDocument data)
+			{
+				if (data.TryGetValue("user", out var userValue) && userValue is SearchDocument user)
+				{
+					if (user.TryGetValue("biography", out var biographyValue) && biographyValue is string biography)
+					{
+						return biography;
+					}
+				}
+			}
+		}
 
-    static async Task<float[]> GenerateEmbedding(string text)
-    {
-        using (var httpClient = new HttpClient())
-        {
-            // Add API Key to the headers
-            httpClient.DefaultRequestHeaders.Add("api-key", openAiApiKey);
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+		return null;
+	}
 
-            // Define the request body
-            var requestBody = new
-            {
-                input = text
-            };
+	static async Task<float[]> GenerateEmbedding(string text, string openAiEndpoint, string openAiApiKey, string openAiDeploymentName)
+	{
+		using (var httpClient = new HttpClient())
+		{
+			// Add API Key to the headers
+			httpClient.DefaultRequestHeaders.Add("api-key", openAiApiKey);
+			httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            // Create JSON content
-            var content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
+			// Define the request body
+			var requestBody = new
+			{
+				input = text
+			};
 
-            // Construct the API URL
-            string apiUrl = $"{openAiEndpoint}/openai/deployments/{openAiDeploymentName}/embeddings?api-version=2023-05-15";
+			// Create JSON content
+			var content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
 
-            // Send the request to the Azure OpenAI API
-            var response = await httpClient.PostAsync(apiUrl, content);
+			// Construct the API URL
+			string apiUrl = $"{openAiEndpoint}/openai/deployments/{openAiDeploymentName}/embeddings?api-version=2023-05-15";
 
-            // Ensure the request was successful
-            response.EnsureSuccessStatusCode();
+			// Send the request to the Azure OpenAI API
+			var response = await httpClient.PostAsync(apiUrl, content);
 
-            // Read and parse the response
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-            var embeddingResponse = JsonSerializer.Deserialize<Rootobject>(jsonResponse);
+			// Ensure the request was successful
+			response.EnsureSuccessStatusCode();
 
-            // Return the embedding array
-            return embeddingResponse.data[0].embedding;
-        }
-    }
+			// Read and parse the response
+			var jsonResponse = await response.Content.ReadAsStringAsync();
+			var embeddingResponse = JsonSerializer.Deserialize<Rootobject>(jsonResponse);
 
-    static async Task UpdateDocumentsInIndex(SearchClient searchClient, List<SearchDocument> documents)
-    {
-        var batch = IndexDocumentsBatch.MergeOrUpload(documents);
-        var options = new IndexDocumentsOptions { ThrowOnAnyError = true };
+			// Return the embedding array
+			return embeddingResponse.data[0].embedding;
+		}
+	}
 
-        try
-        {
-            await searchClient.IndexDocumentsAsync(batch, options);
-            Console.WriteLine($"Updated {documents.Count} documents.");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error updating documents in index: {ex.Message}");
-        }
-    }
+	static async Task UpdateDocumentsInIndex(SearchClient searchClient, List<SearchDocument> documents)
+	{
+		var batch = IndexDocumentsBatch.MergeOrUpload(documents);
+		var options = new IndexDocumentsOptions { ThrowOnAnyError = true };
 
-    public class Rootobject
-    {
-        public string _object { get; set; }
-        public Datum[] data { get; set; }
-        public string model { get; set; }
-        public Usage usage { get; set; }
-    }
+		try
+		{
+			await searchClient.IndexDocumentsAsync(batch, options);
+			Console.WriteLine($"Updated {documents.Count} documents.");
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Error updating documents in index: {ex.Message}");
+		}
+	}
 
-    public class Usage
-    {
-        public int prompt_tokens { get; set; }
-        public int total_tokens { get; set; }
-    }
+	public class Rootobject
+	{
+		public string _object { get; set; }
+		public Datum[] data { get; set; }
+		public string model { get; set; }
+		public Usage usage { get; set; }
+	}
 
-    public class Datum
-    {
-        public string _object { get; set; }
-        public int index { get; set; }
-        public float[] embedding { get; set; }
-    }
+	public class Usage
+	{
+		public int prompt_tokens { get; set; }
+		public int total_tokens { get; set; }
+	}
+
+	public class Datum
+	{
+		public string _object { get; set; }
+		public int index { get; set; }
+		public float[] embedding { get; set; }
+	}
 }
