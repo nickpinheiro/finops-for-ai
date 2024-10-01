@@ -397,3 +397,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /src/quickstarts/azure-openai-quickstart-generate-images/Properties/launchSettings.json
+/src/quickstarts/azure-openai-quickstart-chat-completion/Properties/launchSettings.json
