@@ -4,37 +4,41 @@ using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure rate limiting
 builder.Services.AddRateLimiter(options =>
 {
-    options.OnRejected = async (context, cancellationToken) =>
-    {
-        context.HttpContext.Items["RateLimitExceeded"] = true;
-        context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+	options.OnRejected = async (context, cancellationToken) =>
+	{
+		context.HttpContext.Items["RateLimitExceeded"] = true;
+		context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
 
-        context.HttpContext.Response.Redirect("generate-bio?message=rate-limit-exceeded");
-    };
+		context.HttpContext.Response.Redirect("generate-bio?message=rate-limit-exceeded");
+	};
 
-    options.AddFixedWindowLimiter(policyName: "GenerateBioPolicy", configureOptions =>
-    {
-        configureOptions.PermitLimit = 1; // Limit to 1 request per hour
-        configureOptions.Window = TimeSpan.FromHours(1);
-        configureOptions.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-        configureOptions.QueueLimit = 0; // No queue limit
-    });
+	options.AddFixedWindowLimiter(policyName: "GenerateBioPolicy", configureOptions =>
+	{
+		configureOptions.PermitLimit = 1; // Limit to 1 request per hour
+		configureOptions.Window = TimeSpan.FromHours(1);
+		configureOptions.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+		configureOptions.QueueLimit = 0; // No queue limit
+	});
 });
 
+// Fetch sensitive values from environment variables
 builder.Services.AddSingleton<GenerativeAIService>(provider =>
 {
-	string keyFromEnvironment = "cc67ba39c6ad4938ac2b8c689dfc7977";
-	Uri endpoint = new Uri("https://openai-dev-000.openai.azure.com/");
+	string keyFromEnvironment = Environment.GetEnvironmentVariable("AZURE_OPENAI_KEY") ?? throw new Exception("Missing environment variable: AZURE_OPENAI_KEY");
+	string endpointFromEnvironment = Environment.GetEnvironmentVariable("AZURE_OPENAI_ENDPOINT") ?? throw new Exception("Missing environment variable: AZURE_OPENAI_ENDPOINT");
+	Uri endpoint = new Uri(endpointFromEnvironment);
 	return new GenerativeAIService(keyFromEnvironment, endpoint);
 });
 
-// Add services to the container.
+// Add services to the container
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+// Middleware for handling 429 Too Many Requests errors
 app.Use(async (context, next) =>
 {
 	if (context.Response.StatusCode == 429)
@@ -48,7 +52,7 @@ app.Use(async (context, next) =>
 	}
 });
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
 	app.UseExceptionHandler("/Home/Error");
